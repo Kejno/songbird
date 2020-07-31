@@ -1,0 +1,50 @@
+.header {
+  margin-top: .5rem;
+  flex-direction: column;
+}
+
+.header ul li {
+  list-style: none;
+  flex: auto;
+  margin: 0;
+  border-radius: 3px;
+}
+
+.header ul li:hover {
+  background-color: #444;
+}
+
+.header a:hover {
+  text-decoration: none;
+}
+
+.header h3 a {
+  color: white;
+}
+
+.header h3 a:hover {
+  color: #00bc8c;
+}
+
+.top-panel{
+   margin-top: 15px;
+  margin-bottom: 5px;
+  justify-content: space-between;
+}
+
+.pagination{
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0;
+  margin-bottom: 25px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.page-item{
+}
+
+.page-link{
+  background-color: #008966;
+  border-color: #007c5d;
+}
