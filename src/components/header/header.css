@@ -48,3 +48,15 @@
   background-color: #008966;
   border-color: #007c5d;
 }
+
+.page-link:hover {
+  background-color: #008966;
+}
+
+.active{
+  z-index: 2;
+  color: #fff;
+  text-decoration: none;
+  background-color: #00efb2;
+  border-color: transparent;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { randomNum } from '../../services/functions'
+import { randomNum } from '../../services/functions';
+import { status } from '../../services/constants'
 import birdsData from '../../services/birdsData'
 import Header from '../header';
 import RandomPlanet from '../random-planet';
@@ -7,7 +8,6 @@ import ItemList from '../item-list';
 import BirdDetails from '../bird-details';
 
 import './app.css';
-import { render } from '@testing-library/react';
 
 class App extends Component {
 
@@ -16,6 +16,7 @@ class App extends Component {
     rightId: 0,
     answerState: null,
     answerId: null,
+    isSuccess: false,
   }
 
   componentDidMount() {
@@ -25,37 +26,53 @@ class App extends Component {
   }
 
   onClickHandle = (event) => {
-    const { rightId, count } = this.state;
+
+    const { rightId } = this.state;
     const answerId = +event.target.id;
+    const { success, error } = status;
+
     this.setState({ answerId: +event.target.id })
+
     if (answerId === rightId) {
       this.setState({
-        answerState: { [answerId]: 'success' }
+        answerState: { [answerId]: success },
+        isSuccess: true,
       })
-
-      /*  const timeout = window.setTimeout(() => {
-         this.setState({ count: count + 1, answerState: null })
- 
-         window.clearTimeout(timeout)
-       }, 1000) */
-
     } else {
       this.setState({
-        answerState: { [answerId]: 'error' }
+        answerState: { [answerId]: error }
       })
     }
 
   }
+
+  onButtonClick = () => {
+    const { count, isSuccess } = this.state
+
+    if (isSuccess) {
+      this.setState({
+        count: count + 1,
+        answerState: null,
+        answerId: null,
+        isSuccess: false,
+      })
+    }
+  }
+
   render() {
-    const { answerState, count, answerId, rightId } = this.state;
+    const { answerState, count, answerId, rightId, isSuccess } = this.state;
+    const { active } = status;
     return (
-      <div className="app-container">
-        <Header />
+      <div className="container">
+        <Header
+          count={count}
+        />
         <RandomPlanet
           answerState={answerState}
           answerId={answerId}
           count={count}
           rightId={rightId}
+          isSuccess={isSuccess}
         />
 
         <div className="row mb2">
@@ -65,13 +82,21 @@ class App extends Component {
               answerState={answerState}
               count={count}
               answerId={answerId}
+              isSuccess={isSuccess}
+              rightId={rightId}
             />
           </div>
           <div className="col-md-6">
             <BirdDetails
               answerId={answerId}
+              count={count}
             />
           </div>
+
+          <button
+            className={`btn ${!!isSuccess && active}`}
+            onClick={this.onButtonClick}
+          >Next level</button>
         </div>
 
 

@@ -1,8 +1,8 @@
 import React from 'react';
-
+import { categoryQuestions } from '../../services/constants';
 import './header.css';
 
-const Header = () => {
+const Header = ({ count }) => {
   return (
     <div className="header d-flex">
       <div className="top-panel d-flex">
@@ -12,18 +12,25 @@ const Header = () => {
         </div>
       </div>
       <ul className="pagination">
-        <li className="page-item">
-          <a href="#" className="page-link">People</a>
-        </li>
-        <li className="page-item">
-          <a href="#" className="page-link">Planets</a>
-        </li>
-        <li className="page-item">
-          <a href="#" className="page-link">Starships</a>
-        </li>
+        {
+          categoryQuestions.map((category, key) => (
+            <HeaderItem
+              category={category}
+              key={key}
+              active={count === key ? 'active' : null}
+            />
+          ))
+        }
+
       </ul>
     </div>
   );
 };
 
 export default Header;
+
+const HeaderItem = ({ category, active }) => (
+  <li className="page-item">
+    <span className={`page-link ${active}`}>{category}</span>
+  </li>
+)

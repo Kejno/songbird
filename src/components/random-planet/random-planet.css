@@ -12,6 +12,7 @@
 
 .random-planet .list-group {
   margin: 1rem 0 0 1rem;
+  flex: 1 1 auto;
 }
 
 .random-planet .list-group-item {

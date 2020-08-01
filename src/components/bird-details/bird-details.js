@@ -6,16 +6,14 @@ import './bird-details.css';
 export default class BirdDetails extends Component {
 
   render() {
-    const { answerId } = this.props
+    const { answerId, count } = this.props
     return (
       <div className="bird-details card">
-        {/* <Intro /> */}
-        {/* <BirdInfo /> */}
-
         {
           answerId
             ? <BirdInfo
               answerId={answerId}
+              count={count}
             />
             : <Intro />
         }
@@ -24,7 +22,6 @@ export default class BirdDetails extends Component {
     )
   }
 }
-
 
 class Intro extends Component {
   render() {
@@ -39,31 +36,28 @@ class Intro extends Component {
 
 class BirdInfo extends Component {
   render() {
-    const { answerId } = this.props
-    console.log(answerId)
+    const { answerId, count } = this.props
     return (
       <React.Fragment>
         <div className="card-body">
           <img className="bird-image"
-            src={birdsData[0][answerId - 1].image} />
+            src={birdsData[count][answerId - 1].image} alt={birdsData[count][answerId - 1].name} />
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              <h4>{birdsData[0][answerId - 1].name}</h4>
+              <h4>{birdsData[count][answerId - 1].name}</h4>
             </li>
             <li className="list-group-item">
-              <span>{birdsData[0][answerId - 1].species}</span>
+              <span>{birdsData[count][answerId - 1].species}</span>
             </li>
             <li className="list-group-item">
               <AudioPlayer
-                src={birdsData[0][answerId - 1].audio}
-              /* onPlay={e => console.log("onPlay")} */
-              // other props here
+                src={birdsData[count][answerId - 1].audio}
               />
             </li>
           </ul>
         </div>
         <span className="bird-description">
-          {birdsData[0][answerId - 1].description}
+          {birdsData[count][answerId - 1].description}
         </span>
       </React.Fragment>
     )

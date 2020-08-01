@@ -1,3 +1,17 @@
-.app-container{
-  padding: 15px 30px;
+.btn {
+  width: 100%;
+  margin: 25px 15px;
+  background-color: #303030;
+  border: 1px solid #444;
+  color: #fff!important;
+  cursor: auto;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.active{
+  z-index: 2;
+  color: #fff;
+  text-decoration: none;
+  background-color: #00efb2;
 }
