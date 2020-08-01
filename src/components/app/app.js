@@ -33,11 +33,11 @@ class App extends Component {
         answerState: { [answerId]: 'success' }
       })
 
-      const timeout = window.setTimeout(() => {
-        this.setState({ count: count + 1, answerState: null })
-
-        window.clearTimeout(timeout)
-      }, 1000)
+      /*  const timeout = window.setTimeout(() => {
+         this.setState({ count: count + 1, answerState: null })
+ 
+         window.clearTimeout(timeout)
+       }, 1000) */
 
     } else {
       this.setState({
@@ -68,7 +68,9 @@ class App extends Component {
             />
           </div>
           <div className="col-md-6">
-            <BirdDetails />
+            <BirdDetails
+              answerId={answerId}
+            />
           </div>
         </div>
 

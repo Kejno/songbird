@@ -26,7 +26,9 @@ export default class ItemList extends Component {
     return (
       <ul className="item-list list-group">
         {birdName.map((name, index) => (
-          <li className={answerId === index + 1 ? `${cls} ${status}` : cls} key={index} onClick={onClick} id={index + 1}>
+          <li className={answerId === index + 1
+            ? `${cls} ${status}`
+            : cls} key={index} onClick={onClick} id={index + 1}>
             <span className="li-btn"></span>
             {name}
           </li>
