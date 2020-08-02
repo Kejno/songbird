@@ -12,7 +12,7 @@ export default class RandomPlanet extends Component {
 
   render() {
     const { answerState, count, rightId, isSuccess } = this.props;
-    console.log(rightId)
+
     const birdItem = birdsData[count][rightId - 1];
     return (
       <div className="random-planet jumbotron rounded">

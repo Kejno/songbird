@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { randomNum } from '../../services/functions';
-import { status } from '../../services/constants'
+import { status, multiplier } from '../../services/constants'
 import birdsData from '../../services/birdsData'
 import Header from '../header';
 import RandomPlanet from '../random-planet';
@@ -14,61 +14,106 @@ class App extends Component {
   state = {
     count: 0,
     rightId: 0,
-    answerState: null,
+    multiplier,
+    score: 0,
     answerId: null,
     isSuccess: false,
+    items: [],
   }
 
   componentDidMount() {
-    const allItemInQuiz = birdsData[this.state.count].length - 1;
-    const randomIndex = randomNum(allItemInQuiz);
-    this.setState({ rightId: birdsData[this.state.count][randomIndex].id })
+    this.createRightId()
+    const items = this.createItems(birdsData[0]);
+    this.setState({ items })
   }
 
-  onClickHandle = (event) => {
+  createItems = (data) => {
+    return data.map(item => {
+      return {
+        ...item, status: null
+      }
+    })
+  }
+  createRightId = () => {
+    const allItemInQuiz = birdsData[this.state.count].length - 1;
+    const randomIndex = randomNum(allItemInQuiz);
+    const rightId = birdsData[this.state.count][randomIndex].id;
+    this.setState({ rightId })
+  }
 
-    const { rightId } = this.state;
-    const answerId = +event.target.id;
+  toggleProperty = (arr, id, propName) => {
     const { success, error } = status;
+    const idx = arr.findIndex((item) => item.id === id);
+    const value = this.state.rightId === id ? success : error;
+    const item = { ...arr[idx], [propName]: value };
+    return [
+      ...arr.slice(0, idx),
+      item,
+      ...arr.slice(idx + 1)
+    ];
+  };
 
-    this.setState({ answerId: +event.target.id })
+  onToggleDone = (id) => {
+    this.setState((state) => {
+      const items = this.toggleProperty(state.items, id, 'status');
+      console.log(items)
+      return { items };
+    });
+  };
 
-    if (answerId === rightId) {
-      this.setState({
-        answerState: { [answerId]: success },
-        isSuccess: true,
-      })
-    } else {
-      this.setState({
-        answerState: { [answerId]: error }
-      })
+  onChangeMultiplier = () => {
+    this.setState(({ multiplier }) => ({
+      multiplier: multiplier - 1,
+    }));
+  }
+
+  onChangeScore = () => {
+    this.setState(({ score }) => ({
+      score: score + this.state.multiplier,
+    }));
+  }
+
+  onClickHandle = (id) => {
+
+    const { rightId, isSuccess } = this.state;
+
+    !isSuccess && this.onToggleDone(id)
+    this.setState({ answerId: id })
+
+    if (id === rightId && !isSuccess) {
+      this.setState({ isSuccess: true })
+      this.onChangeScore()
+
+    } else if (!isSuccess) {
+      this.onChangeMultiplier();
     }
-
   }
 
   onButtonClick = () => {
     const { count, isSuccess } = this.state
 
     if (isSuccess) {
+      this.createRightId();
       this.setState({
         count: count + 1,
-        answerState: null,
         answerId: null,
         isSuccess: false,
+        items: birdsData[count + 1],
+        multiplier,
       })
     }
   }
 
   render() {
-    const { answerState, count, answerId, rightId, isSuccess } = this.state;
+    const { count, answerId, rightId, isSuccess, score, items } = this.state;
     const { active } = status;
     return (
       <div className="container">
         <Header
           count={count}
+          score={score}
         />
         <RandomPlanet
-          answerState={answerState}
           answerId={answerId}
           count={count}
           rightId={rightId}
@@ -78,12 +123,8 @@ class App extends Component {
         <div className="row mb2">
           <div className="col-md-6">
             <ItemList
-              onClick={this.onClickHandle}
-              answerState={answerState}
-              count={count}
-              answerId={answerId}
-              isSuccess={isSuccess}
-              rightId={rightId}
+              onClickHandle={this.onClickHandle}
+              items={items}
             />
           </div>
           <div className="col-md-6">

@@ -2,13 +2,13 @@ import React from 'react';
 import { categoryQuestions } from '../../services/constants';
 import './header.css';
 
-const Header = ({ count }) => {
+const Header = ({ count, score }) => {
   return (
     <div className="header d-flex">
       <div className="top-panel d-flex">
         <h3 className="logo">Sogbirds</h3>
         <div className="score">Score:
-        <span>4</span>
+        <span>{' ' + score}</span>
         </div>
       </div>
       <ul className="pagination">

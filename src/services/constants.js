@@ -5,9 +5,11 @@ const status = {
   error: 'error',
   active: 'active',
 }
+const multiplier = 5;
 
 export {
   defaultNameToQuestion,
   categoryQuestions,
   status,
+  multiplier
 }
