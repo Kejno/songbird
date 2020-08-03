@@ -13,7 +13,7 @@ export default class RandomPlanet extends Component {
   render() {
     const { answerState, count, rightId, isSuccess } = this.props;
 
-    const birdItem = birdsData[count][rightId - 1];
+    const birdItem = birdsData[count].data[rightId - 1];
     return (
       <div className="random-planet jumbotron rounded">
         <img className="bird-image"
@@ -28,7 +28,7 @@ export default class RandomPlanet extends Component {
               {
 
                 <AudioPlayer
-                  src={birdsData[count][rightId].audio}
+                  src={birdsData[count].data[rightId].audio}
                   customProgressBarSection={
                     [
                       RHAP_UI.CURRENT_TIME,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { categoryQuestions } from '../../services/constants';
+import birdsData from '../../services/birdsData';
 import './header.css';
 
 const Header = ({ count, score }) => {
@@ -13,13 +13,16 @@ const Header = ({ count, score }) => {
       </div>
       <ul className="pagination">
         {
-          categoryQuestions.map((category, key) => (
-            <HeaderItem
-              category={category}
-              key={key}
-              active={count === key ? 'active' : null}
-            />
-          ))
+          birdsData.map((items, key) => {
+
+            return (
+              <HeaderItem
+                category={items.family}
+                key={key}
+                active={count === key ? 'active' : null}
+              />
+            )
+          })
         }
 
       </ul>

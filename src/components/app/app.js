@@ -23,7 +23,7 @@ class App extends Component {
 
   componentDidMount() {
     this.createRightId()
-    const items = this.createItems(birdsData[0]);
+    const items = this.createItems(birdsData[0].data);
     this.setState({ items })
   }
 
@@ -35,9 +35,10 @@ class App extends Component {
     })
   }
   createRightId = () => {
-    const allItemInQuiz = birdsData[this.state.count].length - 1;
+    const allItemInQuiz = birdsData[this.state.count].data.length - 1;
+    console.log(allItemInQuiz)
     const randomIndex = randomNum(allItemInQuiz);
-    const rightId = birdsData[this.state.count][randomIndex].id;
+    const rightId = birdsData[this.state.count].data[randomIndex].id;
     this.setState({ rightId })
   }
 

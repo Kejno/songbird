@@ -41,23 +41,23 @@ class BirdInfo extends Component {
       <React.Fragment>
         <div className="card-body">
           <img className="bird-image"
-            src={birdsData[count][answerId - 1].image} alt={birdsData[count][answerId - 1].name} />
+            src={birdsData[count].data[answerId - 1].image} alt={birdsData[count].data[answerId - 1].name} />
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              <h4>{birdsData[count][answerId - 1].name}</h4>
+              <h4>{birdsData[count].data[answerId - 1].name}</h4>
             </li>
             <li className="list-group-item">
-              <span>{birdsData[count][answerId - 1].species}</span>
+              <span>{birdsData[count].data[answerId - 1].species}</span>
             </li>
             <li className="list-group-item">
               <AudioPlayer
-                src={birdsData[count][answerId - 1].audio}
+                src={birdsData[count].data[answerId - 1].audio}
               />
             </li>
           </ul>
         </div>
         <span className="bird-description">
-          {birdsData[count][answerId - 1].description}
+          {birdsData[count].data[answerId - 1].description}
         </span>
       </React.Fragment>
     )
