@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import birdsData from '../../services/birdsData';
-import AudioPlayer from 'react-h5-audio-player';
+import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import './bird-details.css';
 
 export default class BirdDetails extends Component {
@@ -37,27 +37,43 @@ class Intro extends Component {
 class BirdInfo extends Component {
   render() {
     const { answerId, count } = this.props
+    const birdItem = birdsData[count].data[answerId - 1];
     return (
       <React.Fragment>
         <div className="card-body">
           <img className="bird-image"
-            src={birdsData[count].data[answerId - 1].image} alt={birdsData[count].data[answerId - 1].name} />
+            src={birdItem.image} alt={birdItem.name} />
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              <h4>{birdsData[count].data[answerId - 1].name}</h4>
+              <h4>{birdItem.name}</h4>
             </li>
             <li className="list-group-item">
-              <span>{birdsData[count].data[answerId - 1].species}</span>
+              <span>{birdItem.species}</span>
             </li>
             <li className="list-group-item">
               <AudioPlayer
-                src={birdsData[count].data[answerId - 1].audio}
+                src={birdItem.audio}
+                style={{
+                  width: '185px',
+                  marginRight: '8px',
+                }}
+                customProgressBarSection={
+                  [
+                    RHAP_UI.PROGRESS_BAR,
+                  ]
+                }
+                layout="horizontal-reverse"
+                customVolumeControls={[]}
+                customAdditionalControls={[]}
+                showJumpControls={false}
+                autoPlayAfterSrcChange={false}
+
               />
             </li>
           </ul>
         </div>
         <span className="bird-description">
-          {birdsData[count].data[answerId - 1].description}
+          {birdItem.description}
         </span>
       </React.Fragment>
     )

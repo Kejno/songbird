@@ -34,3 +34,26 @@
 .bird-details .list-group-item .term{
   margin-right: .5rem;
 }
+
+.rhap_controls-section{
+  flex: none;
+}
+
+.rhap_container{
+  padding: 0;
+
+  border: none;
+}
+
+.rhap_main{
+  background-color:#303030;
+}
+
+.rhap_time{
+  color: #f0f0f0;
+}
+
+button:focus, .rhap_progress-container {
+  outline: none;
+}
+

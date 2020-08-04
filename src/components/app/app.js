@@ -23,7 +23,7 @@ class App extends Component {
 
   componentDidMount() {
     this.createRightId()
-    const items = this.createItems(birdsData[0].data);
+    const items = this.createItems(birdsData[this.state.count].data);
     this.setState({ items })
   }
 
@@ -36,7 +36,6 @@ class App extends Component {
   }
   createRightId = () => {
     const allItemInQuiz = birdsData[this.state.count].data.length - 1;
-    console.log(allItemInQuiz)
     const randomIndex = randomNum(allItemInQuiz);
     const rightId = birdsData[this.state.count].data[randomIndex].id;
     this.setState({ rightId })
@@ -95,11 +94,12 @@ class App extends Component {
 
     if (isSuccess) {
       this.createRightId();
+      const items = this.createItems(birdsData[count + 1].data);
       this.setState({
         count: count + 1,
         answerId: null,
         isSuccess: false,
-        items: birdsData[count + 1],
+        items,
         multiplier,
       })
     }
