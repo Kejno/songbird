@@ -1,15 +1,21 @@
+import soundError from '../assets/audio/error.mp3';
+import soundSuccess from '../assets/audio/success.mp3';
+import birdData from './birdsData';
+
 const defaultNameToQuestion = "******";
-const categoryQuestions = ["Разминка", "Ворбьиные", "Лесные птицы", "Певчие птицы", "Хищные птицы", "Морские птицы",];
 const status = {
   success: 'success',
   error: 'error',
   active: 'active',
 }
 const multiplier = 5;
+const allScore = multiplier * birdData.length;
 
 export {
   defaultNameToQuestion,
-  categoryQuestions,
   status,
-  multiplier
+  multiplier,
+  soundError,
+  soundSuccess,
+  allScore
 }

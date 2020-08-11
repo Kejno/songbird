@@ -1,0 +1,15 @@
+.btn-game-over {
+  width: 100%;
+  padding: 15px;
+  margin: 25px 0;
+}
+
+.btn-next {
+  background-color: #00bc8c !important;
+  cursor: pointer;
+}
+
+.btn:hover{
+  color: #fff;
+  background-color: #00efb2 !important;
+}

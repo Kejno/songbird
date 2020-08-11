@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import birdsData from '../../services/birdsData';
 import { defaultNameToQuestion } from '../../services/constants'
+import { pauseAudio } from '../../services/functions'
 
 import 'react-h5-audio-player/lib/styles.css';
-import './random-planet.css';
+import './random-bird.css';
 
 import defaultBird from '../../assets/images/default-bird.jpg';
 
-export default class RandomPlanet extends Component {
+export default class RandomBird extends Component {
 
   render() {
     const { answerState, count, rightId, isSuccess } = this.props;
-
+    console.log(rightId)
     const birdItem = birdsData[count].data[rightId];
-    console.log('rightId', rightId)
+
     return (
       <div className="random-planet jumbotron rounded">
         <img className="bird-image"
@@ -27,9 +28,8 @@ export default class RandomPlanet extends Component {
           <li className="list-group-item">
             <div className="audio-player">
               {
-
                 <AudioPlayer
-                  src={birdsData[count].data[rightId].audio}
+                  src={birdItem.audio}
                   layout="horizontal-reverse"
                   customVolumeControls={[]}
                   customAdditionalControls={[]}

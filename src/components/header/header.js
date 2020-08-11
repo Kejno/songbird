@@ -2,33 +2,31 @@ import React from 'react';
 import birdsData from '../../services/birdsData';
 import './header.css';
 
-const Header = ({ count, score }) => {
-  return (
-    <div className="header d-flex">
-      <div className="top-panel d-flex">
-        <h3 className="logo">Sogbirds</h3>
-        <div className="score">Score:
+const Header = ({ count, score }) => (
+  <div className="header d-flex">
+    <div className="top-panel d-flex">
+      <h3 className="logo"></h3>
+      <h5 className="score">Score:
         <span>{' ' + score}</span>
-        </div>
-      </div>
-      <ul className="pagination">
-        {
-          birdsData.map((items, key) => {
-
-            return (
-              <HeaderItem
-                category={items.family}
-                key={key}
-                active={count === key ? 'active' : null}
-              />
-            )
-          })
-        }
-
-      </ul>
+      </h5>
     </div>
-  );
-};
+    <ul className="pagination">
+      {
+        birdsData.map((items, key) => {
+
+          return (
+            <HeaderItem
+              category={items.family}
+              key={key}
+              active={count === key ? 'active' : null}
+            />
+          )
+        })
+      }
+
+    </ul>
+  </div>
+)
 
 export default Header;
 

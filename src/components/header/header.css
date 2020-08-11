@@ -3,6 +3,14 @@
   flex-direction: column;
 }
 
+.logo {
+  background-image: url('../../assets/logo.svg');
+  width: 200px;
+  height: 55px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .header ul li {
   list-style: none;
   flex: auto;

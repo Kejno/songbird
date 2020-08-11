@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import birdsData from '../../services/birdsData';
+import Spinner from '../spinner/spinner'
+
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
+
 import './bird-details.css';
 
 export default class BirdDetails extends Component {

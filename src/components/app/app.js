@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { randomNum } from '../../services/functions';
-import { status, multiplier } from '../../services/constants'
+import { randomNum, playAudio } from '../../services/functions';
+import { status, multiplier, soundError, soundSuccess } from '../../services/constants'
 import birdsData from '../../services/birdsData'
 import Header from '../header';
-import RandomPlanet from '../random-planet';
+import RandomBird from '../random-bird';
 import ItemList from '../item-list';
 import BirdDetails from '../bird-details';
+import GameOver from '../game-over';
+import GamePlay from '../game-play';
 
 import './app.css';
+import ReactPlayer from 'react-player';
 
 class App extends Component {
 
@@ -18,6 +21,7 @@ class App extends Component {
     score: 0,
     answerId: null,
     isSuccess: false,
+    isFinish: false,
     items: [],
   }
 
@@ -83,16 +87,19 @@ class App extends Component {
     if (id === rightId && !isSuccess) {
       this.setState({ isSuccess: true })
       this.onChangeScore()
+      playAudio(soundSuccess)
 
     } else if (!isSuccess) {
       this.onChangeMultiplier();
+      playAudio(soundError)
     }
   }
 
   onButtonClick = () => {
     const { count, isSuccess } = this.state
 
-    if (isSuccess) {
+
+    if (isSuccess && count < 5) {
       this.createRightId();
       const items = this.createItems(birdsData[count + 1].data);
       this.setState({
@@ -102,45 +109,42 @@ class App extends Component {
         items,
         multiplier,
       })
+    } else if (count === 5) {
+      this.setState({ isFinish: true })
     }
+
   }
 
   render() {
-    const { count, answerId, rightId, isSuccess, score, items } = this.state;
+    const { count, answerId, rightId, isSuccess, score, items, isFinish } = this.state;
     const { active } = status;
+
+    let page;
+    if (isFinish) {
+      page = <GameOver
+        score={score}
+      />
+    } else {
+      page = <GamePlay
+        count={count}
+        items={items}
+        active={active}
+        rightId={rightId}
+        answerId={answerId}
+        isSuccess={isSuccess}
+        onClickHandle={this.onClickHandle}
+        onButtonClick={this.onButtonClick}
+      />
+
+    }
     return (
       <div className="container">
         <Header
           count={count}
           score={score}
         />
-        <RandomPlanet
-          answerId={answerId}
-          count={count}
-          rightId={rightId}
-          isSuccess={isSuccess}
-        />
 
-        <div className="row mb2">
-          <div className="col-md-6">
-            <ItemList
-              onClickHandle={this.onClickHandle}
-              items={items}
-            />
-          </div>
-          <div className="col-md-6">
-            <BirdDetails
-              answerId={answerId}
-              count={count}
-            />
-          </div>
-
-          <button
-            className={`btn ${!!isSuccess && active}`}
-            onClick={this.onButtonClick}
-          >Next level</button>
-        </div>
-
+        {page}
 
       </div>
     )
