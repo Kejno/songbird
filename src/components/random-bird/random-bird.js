@@ -14,7 +14,9 @@ export default class RandomBird extends Component {
   render() {
     const { answerState, count, rightId, isSuccess } = this.props;
     console.log(rightId)
-    const birdItem = birdsData[count].data[rightId];
+    const birdItem = birdsData[count].data[rightId - 1];
+    const player = React.createRef()
+
 
     return (
       <div className="random-planet jumbotron rounded">
@@ -29,6 +31,7 @@ export default class RandomBird extends Component {
             <div className="audio-player">
               {
                 <AudioPlayer
+                  ref={player}
                   src={birdItem.audio}
                   layout="horizontal-reverse"
                   customVolumeControls={[]}
@@ -36,6 +39,9 @@ export default class RandomBird extends Component {
                   showJumpControls={false}
                   autoPlayAfterSrcChange={false}
                 />
+              }
+              {
+                console.log(player)
               }
 
             </div>

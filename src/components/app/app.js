@@ -3,30 +3,36 @@ import { randomNum, playAudio } from '../../services/functions';
 import { status, multiplier, soundError, soundSuccess } from '../../services/constants'
 import birdsData from '../../services/birdsData'
 import Header from '../header';
-import RandomBird from '../random-bird';
-import ItemList from '../item-list';
-import BirdDetails from '../bird-details';
 import GameOver from '../game-over';
 import GamePlay from '../game-play';
 
 import './app.css';
-import ReactPlayer from 'react-player';
+
+const randomRightId = (count = 0) => {
+  const allItemInQuiz = birdsData[count].data.length - 1;
+  const randomIndex = randomNum(allItemInQuiz);
+  const rightId = birdsData[count].data[randomIndex].id;
+  return rightId
+}
+
+const initialRightId = randomRightId();
+
+const initialState = {
+  count: 0,
+  rightId: initialRightId,
+  multiplier,
+  score: 0,
+  answerId: null,
+  isSuccess: false,
+  isFinish: false,
+  items: [],
+}
 
 class App extends Component {
 
-  state = {
-    count: 0,
-    rightId: 0,
-    multiplier,
-    score: 0,
-    answerId: null,
-    isSuccess: false,
-    isFinish: false,
-    items: [],
-  }
+  state = { ...initialState }
 
   componentDidMount() {
-    this.createRightId()
     const items = this.createItems(birdsData[this.state.count].data);
     this.setState({ items })
   }
@@ -39,9 +45,7 @@ class App extends Component {
     })
   }
   createRightId = () => {
-    const allItemInQuiz = birdsData[this.state.count].data.length - 1;
-    const randomIndex = randomNum(allItemInQuiz);
-    const rightId = birdsData[this.state.count].data[randomIndex].id;
+    const rightId = randomRightId(this.state.count)
     this.setState({ rightId })
   }
 
@@ -115,6 +119,13 @@ class App extends Component {
 
   }
 
+  onRepeatGameButton = () => {
+    const state = { ...this.initialState }
+    const items = this.createItems(birdsData[0].data);
+    this.setState({ ...state });
+    this.setState({ items })
+  }
+
   render() {
     const { count, answerId, rightId, isSuccess, score, items, isFinish } = this.state;
     const { active } = status;
@@ -123,6 +134,8 @@ class App extends Component {
     if (isFinish) {
       page = <GameOver
         score={score}
+        onRepeatGameButton={this.onRepeatGameButton}
+
       />
     } else {
       page = <GamePlay
