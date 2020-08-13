@@ -20,10 +20,9 @@
 }
 
 .bird-details .bird-image {
-  width: 200px;
   height: 155px;
   border-radius: 10px;
-  object-fit: cover;
+  object-fit: contain;
   margin-right: 2rem;
 }
 
@@ -57,3 +56,19 @@ button:focus, .rhap_progress-container {
   outline: none;
 }
 
+.rhap_additional-controls{
+  display: none;
+}
+
+@media (max-width: 996px) {
+  .bird-details {
+    margin-top: 32px;
+  }
+ .card-body{
+   display: block;
+   text-align: center;
+ }
+ .rhap_container{
+   margin: 0 auto !important;
+ }
+}

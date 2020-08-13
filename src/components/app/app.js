@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { randomNum, playAudio } from '../../services/functions';
+import { randomRightId, playAudio } from '../../services/functions';
 import { status, multiplier, soundError, soundSuccess } from '../../services/constants'
 import birdsData from '../../services/birdsData'
 import Header from '../header';
@@ -7,13 +7,6 @@ import GameOver from '../game-over';
 import GamePlay from '../game-play';
 
 import './app.css';
-
-const randomRightId = (count = 0) => {
-  const allItemInQuiz = birdsData[count].data.length - 1;
-  const randomIndex = randomNum(allItemInQuiz);
-  const rightId = birdsData[count].data[randomIndex].id;
-  return rightId
-}
 
 const initialRightId = randomRightId();
 
@@ -35,6 +28,13 @@ class App extends Component {
   componentDidMount() {
     const items = this.createItems(birdsData[this.state.count].data);
     this.setState({ items })
+    console.log(`Правильный ответ: ${this.state.rightId}`)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.rightId !== this.state.rightId) {
+      console.log(`Правильный ответ: ${this.state.rightId}`)
+    }
   }
 
   createItems = (data) => {
@@ -64,7 +64,6 @@ class App extends Component {
   onToggleDone = (id) => {
     this.setState((state) => {
       const items = this.toggleProperty(state.items, id, 'status');
-      console.log(items)
       return { items };
     });
   };
@@ -102,7 +101,6 @@ class App extends Component {
   onButtonClick = () => {
     const { count, isSuccess } = this.state
 
-
     if (isSuccess && count < 5) {
       this.createRightId();
       const items = this.createItems(birdsData[count + 1].data);
@@ -113,6 +111,7 @@ class App extends Component {
         items,
         multiplier,
       })
+
     } else if (count === 5) {
       this.setState({ isFinish: true })
     }
@@ -120,10 +119,10 @@ class App extends Component {
   }
 
   onRepeatGameButton = () => {
-    const state = { ...this.initialState }
+    const state = { ...initialState }
     const items = this.createItems(birdsData[0].data);
-    this.setState({ ...state });
-    this.setState({ items })
+    this.createRightId()
+    this.setState({ ...state, items });
   }
 
   render() {

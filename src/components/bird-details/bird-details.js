@@ -65,8 +65,7 @@ class BirdInfo extends Component {
                     RHAP_UI.PROGRESS_BAR,
                   ]
                 }
-                layout="horizontal-reverse"
-                customVolumeControls={[]}
+
                 customAdditionalControls={[]}
                 showJumpControls={false}
                 autoPlayAfterSrcChange={false}

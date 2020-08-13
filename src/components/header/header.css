@@ -11,6 +11,11 @@
   background-repeat: no-repeat;
 }
 
+.score{
+  position: relative;
+  top: 17px;
+}
+
 .header ul li {
   list-style: none;
   flex: auto;
@@ -47,9 +52,6 @@
   margin-bottom: 25px;
   border-radius: 5px;
   overflow: hidden;
-}
-
-.page-item{
 }
 
 .page-link{

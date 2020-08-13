@@ -1,7 +1,7 @@
 .btn-game-over {
   width: 100%;
   padding: 15px;
-  margin: 25px 0;
+  margin:0 !important;
 }
 
 .btn-next {
@@ -12,4 +12,23 @@
 .btn:hover{
   color: #fff;
   background-color: #00efb2 !important;
+}
+
+.finish-image{
+  width: 320px;
+}
+
+@media (max-width: 500px) {
+  .display-3{
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 410px) {
+  .display-3{
+    font-size: 2rem;
+  }
+  .finish-image{
+    width: 250px;
+  }
 }
