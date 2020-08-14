@@ -5,9 +5,10 @@ import BirdDetails from '../bird-details';
 
 import './game-play.css';
 
-const GamePlay = ({ answerId, count, rightId, isSuccess, onClickHandle, items, onButtonClick, active }) => {
-  return (
-    <React.Fragment>
+const GamePlay = ({
+  answerId, count, rightId, isSuccess, onClickHandle, items, onButtonClick, active,
+}) => (
+    <>
       <RandomBird
         answerId={answerId}
         count={count}
@@ -20,7 +21,16 @@ const GamePlay = ({ answerId, count, rightId, isSuccess, onClickHandle, items, o
             onClickHandle={onClickHandle}
             items={items}
           />
+
+          <button
+            type="button"
+            className={`btn ${!!isSuccess && active}`}
+            onClick={onButtonClick}
+          >
+            Next level
+        </button>
         </div>
+
         <div className="col-md-6">
           <BirdDetails
             answerId={answerId}
@@ -28,13 +38,9 @@ const GamePlay = ({ answerId, count, rightId, isSuccess, onClickHandle, items, o
           />
         </div>
 
-        <button
-          className={`btn ${!!isSuccess && active}`}
-          onClick={onButtonClick}
-        >Next level</button>
       </div>
-    </React.Fragment>
-  )
-}
+    </>
 
-export default GamePlay
+  );
+
+export default GamePlay;

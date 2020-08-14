@@ -8,12 +8,29 @@ import './random-bird.css';
 
 import defaultBird from '../../assets/images/default-bird.jpg';
 
+const player = React.createRef()
+
 export default class RandomBird extends Component {
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isSuccess !== this.props.isSuccess) {
+      player.current.audio.current.pause()
+    }
+  }
+
+  createAudioPlayer = (audio) => (
+    <AudioPlayer
+      ref={player}
+      src={audio}
+      customAdditionalControls={[]}
+      showJumpControls={false}
+      autoPlayAfterSrcChange={false}
+    />
+  )
 
   render() {
     const { answerState, count, rightId, isSuccess } = this.props;
     const birdItem = birdsData[count].data[rightId - 1];
-    const player = React.createRef()
 
     return (
       <div className="random-planet jumbotron rounded">
@@ -26,15 +43,7 @@ export default class RandomBird extends Component {
           </li>
           <li className="list-group-item">
             <div className="audio-player">
-              {
-                <AudioPlayer
-                  ref={player}
-                  src={birdItem.audio}
-                  customAdditionalControls={[]}
-                  showJumpControls={false}
-                  autoPlayAfterSrcChange={false}
-                />
-              }
+              {this.createAudioPlayer(birdItem.audio)}
             </div>
           </li>
         </ul>

@@ -3,6 +3,7 @@
   padding: 1rem;
   border: 1px solid #444;
   width: 100%;
+  min-height: 363px;
 }
 
 .card-body{
@@ -62,7 +63,7 @@ button:focus, .rhap_progress-container {
 
 @media (max-width: 996px) {
   .bird-details {
-    margin-top: 32px;
+    margin-bottom: 1rem;
   }
  .card-body{
    display: block;

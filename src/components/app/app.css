@@ -1,12 +1,17 @@
 .btn {
   width: 100%;
-  margin: 25px 15px;
+  margin: 25px 0 0;
   background-color: #303030;
   border: 1px solid #444;
   color: #fff!important;
   cursor: auto;
   -webkit-transition: .3s;
   transition: .3s;
+  height: 52px;
+}
+
+.btn:hover{
+  background-color: #303030 !important;
 }
 
 .active{
@@ -14,4 +19,16 @@
   color: #fff;
   text-decoration: none;
   background-color: #00efb2;
+}
+
+.jumbotron{
+  margin-bottom: 1rem;
+}
+
+.top-panel{
+  margin-top: 0;
+}
+
+.card-body{
+  flex: none;
 }
