@@ -12,6 +12,7 @@
 
 .random-planet .list-group {
   margin: 1rem 0 0 1rem;
+  flex: 1 1 auto;
 }
 
 .random-planet .list-group-item {
@@ -27,4 +28,12 @@
   height: 155px;
   border-radius: 10px;
   margin: 0;
+  object-fit: contain;
+}
+
+@media (max-width: 500px) {
+ .random-planet{
+   display: block;
+   text-align: center;
+ }
 }
